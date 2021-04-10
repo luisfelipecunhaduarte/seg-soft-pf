@@ -1,0 +1,85 @@
+plugins {
+	id "org.springframework.boot" version "2.3.4.RELEASE"
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+}
+
+group = 'br.com.segsoft'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '14'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+def springRelease = '2.3.4.RELEASE'
+dependencies {
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springRelease
+	compile group: 'org.springframework.boot', name: 'spring-boot', version: springRelease
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter', version: springRelease
+	compile group: 'org.springframework', name: 'spring-context', version: '5.2.4.RELEASE'
+	compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.3.0.RELEASE'
+	testCompile group: 'org.springframework.security', name: 'spring-security-test', version: '5.3.0.RELEASE'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springRelease
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: springRelease
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: springRelease
+	compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: springRelease
+	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+	testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springRelease
+	testCompile group: 'org.hibernate', name: 'hibernate-envers', version: '5.4.27.Final'
+
+	implementation group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.4.3'
+
+	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
+	testCompile group: 'com.h2database', name: 'h2', version: '1.4.200'
+	testCompile group: 'org.hamcrest', name: 'hamcrest', version: '2.2'
+
+
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: springRelease
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter', version: springRelease
+	compile group: 'org.springframework.data', name: 'spring-data-jpa', version: springRelease
+	compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+	compile group: 'org.hibernate', name: 'hibernate-envers', version: '5.4.27.Final'
+	compile group: 'org.postgresql', name: 'postgresql', version: '42.2.10'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: springRelease
+
+	testCompile('org.projectlombok:lombok:1.18.8')
+	testAnnotationProcessor('org.projectlombok:lombok:1.18.8')
+	compileOnly 'org.projectlombok:lombok:1.18.8'
+	annotationProcessor 'org.projectlombok:lombok:1.18.8'
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.11.1'
+	compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+	testCompile group: 'net.javacrumbs.shedlock', name: 'shedlock-spring', version: '4.20.0'
+	compile group: 'net.javacrumbs.shedlock', name: 'shedlock-spring', version: '4.20.0'
+	testCompile group: 'net.javacrumbs.shedlock', name: 'shedlock-provider-jdbc-template', version: '4.20.0'
+	compile group: 'net.javacrumbs.shedlock', name: 'shedlock-provider-jdbc-template', version: '4.20.0'
+
+	//Bean validation API
+	compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.1'
+
+	components {
+		withModule('org.springframework:spring-beans') {
+			allVariants {
+				withDependencyConstraints {
+					// Need to patch constraints because snakeyaml is an optional dependency
+					it.findAll { it.name == 'snakeyaml' }.each { it.version { strictly '1.19' } }
+				}
+			}
+		}
+	}
+}
+
+test {
+	useJUnitPlatform()
+}

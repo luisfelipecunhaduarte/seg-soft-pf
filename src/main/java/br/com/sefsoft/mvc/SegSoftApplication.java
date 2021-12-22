@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan(basePackages = {
-		"br.com.almodeschool.mvcalmode"
+		"br.com.sefsoft.mvc"
 })
 public class SegSoftApplication {
 
